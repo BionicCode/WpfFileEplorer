@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:view="clr-namespace:FileExplorer.Wpf.View">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Components/FileExplorer/FileExplorerTreeViewStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+    <Style TargetType="view:FileExplorer">
+        <Setter Property="IsClearExtractedFilesOnExitEnabled" Value="{Binding Source={StaticResource ApplicationSettingsManager}, Path=DeleteExtractedFilesOnAppClosingIsEnabled, Mode=TwoWay}" />
+    </Style>
+    
+</ResourceDictionary>

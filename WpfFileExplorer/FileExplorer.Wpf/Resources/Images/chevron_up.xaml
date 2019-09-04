@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Viewbox x:Key="ChevronUpIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" x:Shared="False">
+        <Canvas Width="980" Height="589.199981689453">
+            <Canvas />
+            <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M58.9,589.100006103516L0,540.900006103516 487.3,6.10351560226263E-06 980,535.600006103516 926.4,589.200006103516 487.3,107.200006103516 58.9,589.100006103516z" />
+        </Canvas>
+    </Viewbox>
+</ResourceDictionary>

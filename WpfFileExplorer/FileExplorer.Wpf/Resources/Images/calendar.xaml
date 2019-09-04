@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file is NOT compatible with Silverlight-->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+  <Canvas Name="svg3376" Width="744.09448819" Height="1052.3622047">
+    <Canvas.RenderTransform>
+      <TranslateTransform X="0" Y="0"/>
+    </Canvas.RenderTransform>
+    <Canvas.Resources/>
+    <!--Unknown tag: sodipodi:namedview-->
+    <!--Unknown tag: metadata-->
+    <Canvas Name="layer1">
+      <Canvas Name="g3434">
+        <Canvas.RenderTransform>
+          <TranslateTransform X="21.142857" Y="28.290776"/>
+        </Canvas.RenderTransform>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="6" Canvas.Top="6" Width="20" Height="20" Name="rect3400" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="10"/>
+        <Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="6" Y1="10" X2="26" Y2="10" Name="line3402" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="10"/>
+        <Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="22" Y1="8" X2="22" Y2="4" Name="line3404" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="10"/>
+        <Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="10" Y1="8" X2="10" Y2="4" Name="line3406" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="10"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="21" Canvas.Top="13" Width="2" Height="2" Name="rect3408" Fill="#000000"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="21" Canvas.Top="17" Width="2" Height="2" Name="rect3410" Fill="#000000"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="17" Canvas.Top="13" Width="2" Height="2" Name="rect3412" Fill="#000000"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="17" Canvas.Top="17" Width="2" Height="2" Name="rect3414" Fill="#000000"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="13" Canvas.Top="13" Width="2" Height="2" Name="rect3416" Fill="#000000"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="13" Canvas.Top="17" Width="2" Height="2" Name="rect3418" Fill="#000000"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="9" Canvas.Top="17" Width="2" Height="2" Name="rect3420" Fill="#000000"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="17" Canvas.Top="21" Width="2" Height="2" Name="rect3422" Fill="#000000"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="13" Canvas.Top="21" Width="2" Height="2" Name="rect3424" Fill="#000000"/>
+        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="9" Canvas.Top="21" Width="2" Height="2" Name="rect3426" Fill="#000000"/>
+      </Canvas>
+    </Canvas>
+  </Canvas>
+</Viewbox>

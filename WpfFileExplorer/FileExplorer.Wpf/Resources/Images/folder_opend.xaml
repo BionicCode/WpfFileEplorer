@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Viewbox x:Key="FolderOpenedIcon" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" x:Shared="False" UseLayoutRounding="True">
+        <Canvas Width="912.199974060059" Height="605.700012207031">
+            <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M135.599998474121,-355.299987792969" />
+            <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M682.599998474121,624.700012207031" />
+            <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M912.199998474121,185.300012207031L276.599998474121,185.300012207031 43.3999984741211,603.000012207031 684.399998474121,603.000012207031 912.199998474121,185.300012207031z" />
+            <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M703.399998474121,122.900012207031L674.499998474121,92.2000122070313 394.199998474121,92.2000122070313 301.999998474121,1.22070312613687E-05 56.0999984741211,1.22070312613687E-05 -1.52587890767109E-06,61.5000122070313 -1.52587890767109E-06,605.700012207031 256.799998474121,150.500012207031 703.399998474121,150.500012207031 703.399998474121,122.900012207031z" />
+        </Canvas>
+    </Viewbox>
+</ResourceDictionary>

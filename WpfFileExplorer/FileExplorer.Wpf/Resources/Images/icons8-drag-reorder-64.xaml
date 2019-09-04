@@ -1,0 +1,13 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <Viewbox x:Key="ShowAllTabsIcon" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Fill" x:Shared="False">
+
+    <Canvas Width="39.0499877929688" Height="32.3099975585938">
+      <Canvas/>
+      <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M39.0499987792969,8.79999267578125L39.0499987792969,11.5599926757812 0.0499987792968568,11.5599926757812C0.0499987792968568,10.7799926757813,0.11999877929685,9.85999267578126,0.0499987792968568,8.79999267578125z"/>
+      <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M-1.22070309771516E-06,17.5599926757812L-1.22070309771516E-06,14.7999926757813 38.9999987792969,14.7999926757813C39.0499987792969,15.5799926757812,38.9999987792969,16.4999926757812,38.9999987792969,17.5599926757812z"/>
+      <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M-1.22070309771516E-06,23.5699926757812L-1.22070309771516E-06,20.7899926757813 38.9999987792969,20.7899926757813C38.9999987792969,21.5899926757813,38.9999987792969,22.5199926757813,38.9999987792969,23.5699926757812z"/>
+      <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M19.8899987792969,-7.32421875682121E-06L25.4099987792969,5.50999267578123 14.4099987792969,5.50999267578123z"/>
+      <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M19.5299987792969,32.3099926757812L14.0199987792969,26.7899926757813 25.0199987792969,26.7899926757813z"/>
+    </Canvas>
+  </Viewbox>
+</ResourceDictionary>

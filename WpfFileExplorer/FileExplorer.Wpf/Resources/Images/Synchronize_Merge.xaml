@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Viewbox x:Key="SynchronizeMerge" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" x:Shared="False" UseLayoutRounding="True" VerticalAlignment="Center">
+        <Canvas Width="980" Height="648.199981689453">
+            <Canvas />
+            <Path VerticalAlignment="Bottom" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M794.8,138.899975585937L980,324.099975585938 794.8,509.299975585937 771.7,486.099975585938 918.3,339.499975585937 532.4,339.499975585937 223.8,648.199975585938 0,648.199975585938 0,617.299975585938 208.3,617.299975585938 501.6,324.099975585938 208.3,30.8999755859375 0,30.8999755859375 0,-2.44140625227374E-05 223.8,-2.44140625227374E-05 532.5,308.699975585937 918.3,308.699975585937 771.7,162.099975585938 794.8,138.899975585937z" />
+        </Canvas>
+    </Viewbox>
+</ResourceDictionary>

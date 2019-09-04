@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file is NOT compatible with Silverlight-->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+  <Canvas Name="svg2" Width="744.09448819" Height="1052.3622047">
+    <Canvas.RenderTransform>
+      <TranslateTransform X="0" Y="0"/>
+    </Canvas.RenderTransform>
+    <Canvas.Resources/>
+    <!--Unknown tag: sodipodi:namedview-->
+    <!--Unknown tag: metadata-->
+    <Canvas Name="layer1">
+      <Canvas Name="g3337">
+        <Canvas.RenderTransform>
+          <TranslateTransform X="-14" Y="1003.4872"/>
+        </Canvas.RenderTransform>
+        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3339" Fill="#FF231F20">
+          <Path.Data>
+            <PathGeometry Figures="m 43.25 17.375 6.75 0 0 31.5 -36 0 0 -31.5 6.75 0 0 -2.25 2.25 0 0 2.25 18 0 0 -2.25 2.25 0 0 2.25 z m -22.5 2.25 -4.5 0 0 4.5 31.5 0 0 -4.5 -4.5 0 0 2.25 -2.25 0 0 -2.25 -18 0 0 2.25 -2.25 0 0 -2.25 z m -4.5 27 31.5 0 0 -20.25 -31.5 0 0 20.25 z m 4.5 -11.25 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 6.75 -13.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 6.75 -13.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 6.75 -13.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z m 0 4.5 0 -2.25 2.25 0 0 2.25 -2.25 0 z" FillRule="NonZero"/>
+          </Path.Data>
+        </Path>
+      </Canvas>
+    </Canvas>
+  </Canvas>
+</Viewbox>

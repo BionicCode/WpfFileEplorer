@@ -1,0 +1,8 @@
+<!-- Converted from svg with ViewerSvg and Ab2d.ReaderSvg -->
+<!-- Created with evaluation version for evaluation purpose only! NOT FOR COMMERCIAL USE! -->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform">
+    <Canvas Width="36" Height="33.0999994277954">
+        <Canvas Canvas.Left="-14" Canvas.Top="-15.4499998092651"/>
+        <Path Fill="#FF231F20" StrokeThickness="1" Canvas.Left="-14" Canvas.Top="-15.4499998092651" Data="F1M50,15.45L50,40.2 26.85,40.2 18.5,48.55 18.5,40.2 14,40.2 14,15.45 50,15.45z M47.75,17.7L16.25,17.7 16.25,37.95 20.75,37.95 20.75,43.1 25.9,37.95 47.75,37.95 47.75,17.7z M27.5,28.95L25.25,28.95 25.25,24.45 29.75,24.45 29.75,28.95C29.75,29.266 29.691,29.559 29.574,29.829 29.457,30.099 29.296,30.336 29.091,30.541 28.886,30.746 28.649,30.907 28.379,31.024 28.109,31.141 27.816,31.2 27.5,31.2L27.5,28.95z M36.5,28.95L34.25,28.95 34.25,24.45 38.75,24.45 38.75,28.95C38.75,29.266 38.691,29.559 38.574,29.829 38.457,30.099 38.296,30.336 38.091,30.541 37.886,30.746 37.649,30.907 37.379,31.024 37.109,31.141 36.816,31.2 36.5,31.2L36.5,28.95z"/>
+    </Canvas>
+</Viewbox>

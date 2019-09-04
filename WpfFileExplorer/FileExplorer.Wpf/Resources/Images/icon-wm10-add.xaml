@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Viewbox x:Key="AddCrossIcon" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" x:Shared="False">
+        <Canvas Width="36" Height="36">
+            <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Canvas.Left="-14" Canvas.Top="-14" Data="F1M50,33.125L33.125,33.125 33.125,50 30.875,50 30.875,33.125 14,33.125 14,30.875 30.875,30.875 30.875,14 33.125,14 33.125,30.875 50,30.875 50,33.125z" />
+        </Canvas>
+    </Viewbox>
+</ResourceDictionary>

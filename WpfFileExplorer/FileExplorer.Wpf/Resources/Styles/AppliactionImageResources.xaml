@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Resources/Images/CloseIcon.xaml" />
+        <ResourceDictionary Source="/Resources/Images/arrowLeft.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-search.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-settings.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-settings2.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-save.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-gototoday.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-folder.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-edit.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-document.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-viewall.xaml" />
+        <ResourceDictionary Source="/Resources/Images/file.xaml" />
+        <ResourceDictionary Source="/Resources/Images/folder_opend.xaml" />
+        <ResourceDictionary Source="/Resources/Images/FileArchiveIcon.xaml" />
+        <ResourceDictionary Source="/Resources/Images/folder_closed.xaml" />
+        <ResourceDictionary Source="/Resources/Images/horizontal_split.xaml" />
+        <ResourceDictionary Source="/Resources/Images/vertical_split.xaml" />
+        <ResourceDictionary Source="/Resources/Images/tabbed_windows.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-delete.xaml" />
+        <ResourceDictionary Source="/Resources/Images/chevron_right.xaml" />
+        <ResourceDictionary Source="/Resources/Images/chevron_up.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-add.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-remove.xaml" />
+        <ResourceDictionary Source="/Resources/Images/Synchronize.xaml" />
+        <ResourceDictionary Source="/Resources/Images/Synchronize_File.xaml" />
+        <ResourceDictionary Source="/Resources/Images/ScrollSynchronize_File.xaml" />
+        <ResourceDictionary Source="/Resources/Images/Synchronize_Merge.xaml" />
+        <ResourceDictionary Source="/Resources/Images/File_2.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-pin.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-pin2.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-unpin.xaml" />
+        <ResourceDictionary Source="/Resources/Images/StackDocumentsIcon.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icons8-drag-reorder-64.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icons8-lowercase-64.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icons8-versions-64.xaml" />
+        <ResourceDictionary Source="/Resources/Images/zip.xaml" />
+        <ResourceDictionary Source="/Resources/Images/zip_2.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icons8-filter-32.xaml" />
+        <ResourceDictionary Source="/Resources/Images/icon-wm10-important.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+  <BitmapImage x:Key="PerformanceIconSource" UriSource="/Resources/Images/icons8-error-32.png" />
+  <Image x:Key="PerformanceIcon" Source="{StaticResource PerformanceIconSource}" Width="20" Height="20" Stretch="UniformToFill" x:Shared="False" />
+</ResourceDictionary>

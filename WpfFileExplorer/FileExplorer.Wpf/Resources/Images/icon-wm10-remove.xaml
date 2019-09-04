@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Viewbox x:Key="RemoveMinusIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" x:Shared="False" >
+        <Canvas Width="36" Height="2.25">
+            <Canvas Canvas.Left="-14" Canvas.Top="-30.875" />
+            <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Canvas.Left="-14" Canvas.Top="-30.875" Data="F1M14,35.125L14,30.875 50,30.875 50,33.125 14,33.125z" />
+        </Canvas>
+    </Viewbox>
+</ResourceDictionary>

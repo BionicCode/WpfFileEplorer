@@ -1,0 +1,40 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--This file is NOT compatible with Silverlight-->
+    <Viewbox x:Key="ArrowLeftIcon" Stretch="Uniform" x:Shared="False" UseLayoutRounding="True" VerticalAlignment="Center">
+        <Grid Name="svg3376" Width="25" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+            <!--Unknown tag: sodipodi:namedview-->
+            <!--Unknown tag: metadata-->
+            <Path Name="path3452" Stroke="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" UseLayoutRounding="True">
+                    <Path.Data>                                                                                                                                  
+                        <PathGeometry Figures="M 1.5 7.5 11.5 7.5" FillRule="NonZero" />                                                                         
+                    </Path.Data>                                                                                                                                 
+            </Path>
+            <Path Name="path3453" Stroke="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1">
+                <Path.Data>                                                                                                                                      
+                    <PathGeometry Figures="M 1.5 7.5 5.5 3.5" FillRule="NonZero" />                                                                              
+                </Path.Data>                                                                                                                                     
+            </Path>
+            <Path Name="path3454" Stroke="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1">
+                <Path.Data>                                                                                                                                      
+                    <PathGeometry Figures="M 1.5 7.5 5.5 11.5" FillRule="NonZero" />                                                                             
+                </Path.Data>                                                                                                                                     
+            </Path>
+
+            <Path Name="path3455" Stroke="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1">
+                <Path.Data>                                                                                                                                     
+                    <PathGeometry Figures="M 12.5 7.5 14.5 7.5" FillRule="NonZero" />                                                                           
+                </Path.Data>                                                                                                                                    
+            </Path>
+            <Path Name="path3456" Stroke="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1">
+                <Path.Data>                                                                                                                                      
+                    <PathGeometry Figures="M 16.5 7.5 18.5 7.5" FillRule="NonZero" />                                                                            
+                </Path.Data>                                                                                                                                     
+            </Path>
+            <Path Name="path3457" Stroke="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1">
+                <Path.Data>
+                    <PathGeometry Figures="M 21.5 7.5 23.5 7.5" FillRule="NonZero" />
+                </Path.Data>
+            </Path>
+        </Grid>
+    </Viewbox>
+</ResourceDictionary>

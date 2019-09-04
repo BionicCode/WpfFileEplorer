@@ -1,0 +1,1137 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:systemIo="clr-namespace:System.IO;assembly=mscorlib"
+                    xmlns:converter1="clr-namespace:FileExplorer.Wpf.View.Converter"
+                    xmlns:templates="clr-namespace:FileExplorer.Wpf.View.Templates"
+                    xmlns:styles="clr-namespace:FileExplorer.Wpf.View.Styles"
+                    xmlns:fileExplorer="clr-namespace:FileExplorer.Wpf.View"
+                    xmlns:resources="clr-namespace:FileExplorer.Wpf.Resources"
+                    xmlns:converter="clr-namespace:BionicLibrary.Net.Converter;assembly=BionicLibrary.Net"
+                    xmlns:wpf="clr-namespace:FileExplorer.Wpf"
+                    xmlns:markupExtension="clr-namespace:BionicLibrary.Net.MarkupExtension;assembly=BionicLibrary.Net">
+
+
+  <converter1:FileInfoToColorMultiValueConverter x:Key="FileInfoToColorMultiValueConverter" />
+  <converter1:ExtractionProgressConverter x:Key="ExtractionProgressConverter" />
+  <converter1:ExtractionProgressToTextConverter x:Key="ExtractionProgressToTextConverter" />
+  <converter1:FileSystemTreeElemetToFileInfosConverter x:Key="FileSystemTreeElemetToFileInfosConverter" />
+  <converter:DividerValueConverter x:Key="DividerValueConverter" />
+  <converter1:FileIsExtractingConverter x:Key="FileIsExtractingConverter" />
+  <converter1:FileAndFolderNameConverter x:Key="FileAndFolderNameConverter" />
+  <templates:FileExplorerTemplateSelector x:Key="FileExplorerTemplateSelector" />
+  <styles:FileTreeStyleSelector x:Key="FileTreeStyleSelector" />
+  <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+  <Style x:Key="DirectoryTreeItemStyle"
+         TargetType="TreeViewItem">
+
+    <Setter Property="OverridesDefaultStyle"
+            Value="True" />
+    <Setter Property="HorizontalContentAlignment"
+            Value="Stretch" />
+    <Setter Property="IsExpanded"
+            Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    <Setter Property="IsSelected"
+            Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    <Setter Property="Visibility"
+            Value="{Binding IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="TreeViewItem">
+          <Border x:Name="Border"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  Padding="{TemplateBinding Padding}">
+            <Grid x:Name="RootGrid"
+                  Margin="0,0,0,0"
+                  HorizontalAlignment="Left">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="ExpanderColumn"
+                                  Width="Auto" />
+                <ColumnDefinition x:Name="ContentColumn"
+                                  Width="*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition x:Name="HeaderRow"
+                               Height="Auto" />
+                <RowDefinition x:Name="ExpandedContentRow"
+                               Height="Auto" />
+              </Grid.RowDefinitions>
+
+              <!-- Expander -->
+              <ToggleButton x:Name="Expander"
+                            Visibility="Hidden"
+                            Padding="9"
+                            Width="25"
+                            Height="25"
+                            Margin="0,0,-10,0"
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Panel.ZIndex="2"
+                            VerticalAlignment="Top"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Content="{StaticResource ChevronUpIcon}"
+                            Command="{x:Static fileExplorer:FileExplorer.ViewFileRoutedCommand}"
+                            ClickMode="Press"
+                            IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsExpanded, Mode=TwoWay}">
+                <ToggleButton.Style>
+                  <Style TargetType="ToggleButton"
+                         BasedOn="{StaticResource ToolIconToggleButtonStyle}">
+                    <Setter Property="Template">
+                      <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding  BorderThickness}"
+                                  Background="{TemplateBinding Background}"
+                                  Padding="{TemplateBinding Padding}">
+                            <ContentPresenter Content="{TemplateBinding Content}">
+                              <ContentPresenter.RenderTransform>
+                                <RotateTransform x:Name="ExpanderRotateTransform"
+                                                 CenterX="3.5"
+                                                 CenterY="3.5"
+                                                 Angle="90" />
+                              </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                          </Border>
+
+                          <!-- Rotate expander on IsChecked -->
+                          <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked"
+                                     Value="True">
+                              <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                  <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="ExpanderRotateTransform"
+                                                     Storyboard.TargetProperty="Angle"
+                                                     Duration="0:0:0.3"
+                                                     BeginTime="0:0:0"
+                                                     From="90"
+                                                     To="180">
+                                      <DoubleAnimation.EasingFunction>
+                                        <ExponentialEase Exponent="5"
+                                                         EasingMode="EaseInOut" />
+                                      </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                  </Storyboard>
+                                </BeginStoryboard>
+                              </Trigger.EnterActions>
+                              <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                  <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="ExpanderRotateTransform"
+                                                     Storyboard.TargetProperty="Angle"
+                                                     Duration="0:0:0.3"
+                                                     BeginTime="0:0:0"
+                                                     From="180"
+                                                     To="90">
+                                      <DoubleAnimation.EasingFunction>
+                                        <ExponentialEase Exponent="5"
+                                                         EasingMode="EaseInOut" />
+                                      </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                  </Storyboard>
+                                </BeginStoryboard>
+                              </Trigger.ExitActions>
+                            </Trigger>
+                          </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                      </Setter.Value>
+                    </Setter>
+                  </Style>
+                </ToggleButton.Style>
+              </ToggleButton>
+              <ContentPresenter x:Name="PART_Header"
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                MinWidth="100"
+                                Width="Auto"
+                                Height="Auto"
+                                ContentSource="Header"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch" />
+              <ItemsPresenter x:Name="ItemsHost"
+                              Grid.Column="1" Margin="0,0,0,0"
+                              Grid.Row="1"
+                              Visibility="Collapsed" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <EventTrigger SourceName="RootGrid"
+                          RoutedEvent="UIElement.PreviewMouseRightButtonUp">
+              <BeginStoryboard>
+                <Storyboard>
+                  <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsSelected"
+                                                  BeginTime="0:0:0"
+                                                  Duration="0:0:0">
+                    <DiscreteBooleanKeyFrame KeyTime="0:0:0"
+                                             Value="True" />
+                  </BooleanAnimationUsingKeyFrames>
+                </Storyboard>
+              </BeginStoryboard>
+            </EventTrigger>
+
+
+            <Trigger Property="IsExpanded"
+                     Value="True">
+              <Setter TargetName="ItemsHost"
+                      Property="Visibility"
+                      Value="Visible" />
+            </Trigger>
+
+            <Trigger Property="IsEnabled"
+                     Value="False">
+              <Setter Property="Foreground"
+                      Value="{StaticResource IconForegroundDisabledBrush}" />
+            </Trigger>
+            <!--<Trigger Property="HasItems"
+                     Value="False">
+              <Setter TargetName="Expander"
+                      Property="Visibility"
+                      Value="Hidden" />
+            </Trigger>-->
+            <DataTrigger Binding="{Binding IsDirectory}"
+                         Value="True">
+              <Setter TargetName="Expander"
+                      Property="Visibility"
+                      Value="Visible" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsArchive}"
+                         Value="True">
+              <Setter TargetName="Expander"
+                      Property="Visibility"
+                      Value="Visible" />
+            </DataTrigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+
+      <DataTrigger Binding="{Binding IsHidden}"
+                   Value="True">
+        <Setter Property="IsEnabled"
+                Value="False" />
+      </DataTrigger>
+
+      <DataTrigger Binding="{Binding IsSystem}"
+                   Value="True">
+        <Setter Property="IsEnabled"
+                Value="False" />
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <HierarchicalDataTemplate x:Key="DirectoryTreeItemTemplate"
+                            DataType="wpf:FileSystemTreeElement"
+                            ItemsSource="{Binding ChildFileSystemTreeElements}"
+                            ItemContainerStyle="{StaticResource DirectoryTreeItemStyle}"
+                            ItemTemplateSelector="{StaticResource FileExplorerTemplateSelector}">
+    <Border x:Name="ItemBorder"
+            ToolTip="{Binding ElementInfo.FullName}"
+            Margin="0,2.5">
+      <Border.ContextMenu >
+        <ContextMenu>
+          <MenuItem Header="Remove File From Explorer" Command="{Binding Source={StaticResource FileExplorerViewModel}, Path=RemoveFileCommand}" CommandParameter="{Binding}" />
+          <Separator  Margin="3,3" Background="{StaticResource SeparatorBrush}" />
+          <MenuItem Header="View File" Command="{x:Static fileExplorer:FileExplorer.ViewFileRoutedCommand}" />
+          <MenuItem Header="View File in External Viewer" Command="{x:Static fileExplorer:FileExplorer.OpenDocumentInExternalEditorRoutedCommand}" />
+        </ContextMenu>
+      </Border.ContextMenu>
+      <Grid MinWidth="200">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition x:Name="ColumnDefinition"
+                            Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Left skew button -->
+        <Button x:Name="ClickableItemBackgroundLeft"
+                Panel.ZIndex="1"
+                Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Width="{Binding ElementName=ItemBorder, Path=Width, Converter={StaticResource GridLengthToDoubleConverter}}"
+                ClickMode="Release"
+                Command="{x:Static fileExplorer:FileExplorer.ViewFileRoutedCommand}"
+                Style="{StaticResource ToolIconButtonStyle}"
+                Padding="0"
+                Height="Auto"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+
+        <!-- Right skew button -->
+        <Button x:Name="ClickableItemBackgroundRight"
+                Panel.ZIndex="1"
+                Grid.Column="2"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                ClickMode="Release"
+                Width="{Binding ElementName=ItemBorder, Path=Width, Converter={StaticResource GridLengthToDoubleConverter}}"
+                Command="{x:Static fileExplorer:FileExplorer.ViewFileRoutedCommand}"
+                Padding="0"
+                Style="{StaticResource ToolIconButtonStyle}"
+                Height="Auto"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+
+        <!-- Top-middle skew button -->
+        <Button x:Name="ClickableItemBackgroundTopMiddle"
+                Panel.ZIndex="1"
+                Grid.Column="1"
+                Grid.Row="0"
+                ClickMode="Release"
+                Command="{x:Static fileExplorer:FileExplorer.ViewFileRoutedCommand}"
+                Padding="0"
+                Style="{StaticResource ToolIconButtonStyle}"
+                Height="Auto"
+                Width="{Binding ElementName=ItemBorder, Path=Width, Converter={StaticResource GridLengthToDoubleConverter}}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+
+        <!-- Bottom-middle skew button -->
+        <Button x:Name="ClickableItemBackgroundBottomMiddle"
+                Panel.ZIndex="1"
+                Grid.Column="1"
+                Grid.Row="1"
+                ClickMode="Release"
+                Command="{x:Static fileExplorer:FileExplorer.ViewFileRoutedCommand}"
+                Padding="0"
+                Style="{StaticResource ToolIconButtonStyle}"
+                Height="Auto"
+                Width="{Binding ElementName=ItemBorder, Path=Width, Converter={StaticResource GridLengthToDoubleConverter}}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+
+
+        <!-- Folder item -->
+        <StackPanel x:Name="ContentHost"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3">
+          <StackPanel Margin="0,0,0,0"
+                      Orientation="Horizontal">
+
+            <Rectangle Width="3"
+                       Fill="{DynamicResource IdColorTagBrush}"
+                       ToolTip="{Binding ElementInfo.FullName, StringFormat=Source: {0}}"
+                       Margin="0,0,3,0">
+              <Rectangle.Resources>
+
+                <SolidColorBrush x:Key="IdColorTagBrush">
+                  <SolidColorBrush.Color>
+                    <MultiBinding Converter="{StaticResource FileInfoToColorMultiValueConverter}"
+                                  Mode="OneWay"
+                                  UpdateSourceTrigger="PropertyChanged">
+                      <Binding Source="{StaticResource FileExplorerViewModel}"
+                               Path="FileInfoIdColorMap"
+                               UpdateSourceTrigger="PropertyChanged" />
+                      <Binding Path="ElementInfo" />
+                    </MultiBinding>
+                  </SolidColorBrush.Color>
+                </SolidColorBrush>
+              </Rectangle.Resources>
+            </Rectangle>
+            <ContentControl x:Name="ItemIcon"
+                            Height="Auto"
+                            Width="13"
+                            Content="{StaticResource FileIcon}"
+                            Foreground="{StaticResource IconForegroundBrush}"
+                            Margin="0,0,5,0" />
+            
+            <!-- Uses trigger to switch the 'Text' binding: in case that 'AlternativeElementName' is empty, them real file or folder name will be displayed -->
+            <TextBlock x:Name="ItemContent"
+                       Height="Auto"
+                       ToolTip="{Binding ElementInfo.FullName}"
+                       HorizontalAlignment="Stretch"
+                       Foreground="{StaticResource TextBrush}"
+                       VerticalAlignment="Center"
+                       Text="{Binding Path=., Converter={StaticResource FileAndFolderNameConverter}}"
+                       Width="Auto"
+                       FontSize="12"
+                       Padding="0,0,0,0" />
+          </StackPanel>
+          <TextBlock x:Name="ProgressStatusText"
+                     FontSize="9"
+                     ToolTip="{Binding ElementInfo.FullName}"
+                     FontStretch="UltraExpanded"
+                     FontWeight="ExtraLight"
+                     Visibility="Collapsed"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Margin="27,0,0,0">
+          </TextBlock>
+          <ProgressBar x:Name="FileProgressBar"
+                       Margin="27,0,0,0"
+                       IsIndeterminate="False"
+                       Background="{StaticResource WindowsDarkerControlBrush}"
+                       BorderBrush="{StaticResource WindowsDarkerControlBrush}"
+                       BorderThickness="1"
+                       Height="5"
+                       Style="{StaticResource {x:Type ProgressBar}}"
+                       Visibility="Collapsed" />
+
+        </StackPanel>
+
+        <!-- Enable single click tree node expansion -->
+        <ToggleButton x:Name="ClickableItemBackgroundExpander"
+                      Grid.Row="0"
+                      Grid.RowSpan="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      Panel.ZIndex="1"
+                      ClickMode="Press"
+                      Visibility="Collapsed"
+                      Opacity="0.3"
+                      IsChecked="{Binding IsExpanded, Mode=TwoWay}"
+                      Style="{StaticResource ToolIconButtonStyle}"
+                      Padding="0"
+                      Height="Auto"
+                      Width="Auto"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch" />
+      </Grid>
+
+      <Border.RenderTransform>
+        <TransformGroup>
+          <SkewTransform x:Name="LeftSkew"
+                         CenterX="{Binding ElementName=ItemBorder, Path=ActualWidth}"
+                         CenterY="0" />
+          <SkewTransform x:Name="RightSkew"
+                         CenterX="0"
+                         CenterY="0" />
+          <SkewTransform x:Name="TopSkew"
+                         CenterX="{Binding ElementName=ItemBorder, Path=ActualWidth, Converter={StaticResource DividerValueConverter}, ConverterParameter={markupExtension:PrimitiveType Double=2}}"
+                         CenterY="{Binding ElementName=ItemBorder, Path=ActualHeight, Converter={StaticResource DividerValueConverter}, ConverterParameter={markupExtension:PrimitiveType Double=2}}" />
+          <SkewTransform x:Name="BottomSkew"
+                         CenterX="{Binding ElementName=ItemBorder, Path=ActualWidth, Converter={StaticResource DividerValueConverter}, ConverterParameter={markupExtension:PrimitiveType Double=2}}"
+                         CenterY="0" />
+        </TransformGroup>
+      </Border.RenderTransform>
+    </Border>
+    <HierarchicalDataTemplate.Triggers>
+      <DataTrigger Value="True">
+        <DataTrigger.Binding>
+          <MultiBinding Converter="{StaticResource FileIsExtractingConverter}"
+                        Mode="OneWay">
+            <Binding />
+            <Binding Source="{StaticResource FileExplorerViewModel}"
+                     Path="HasExtractionsRunning"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </DataTrigger.Binding>
+        <Setter TargetName="FileProgressBar"
+                Property="Visibility"
+                Value="Visible" />
+        <Setter TargetName="ProgressStatusText"
+                Property="Visibility"
+                Value="Visible" />
+        <Setter TargetName="ProgressStatusText"
+                Property="Text">
+          <Setter.Value>
+            <MultiBinding Converter="{StaticResource ExtractionProgressToTextConverter}"
+                          Mode="OneWay">
+              <Binding Source="{StaticResource FileExplorerViewModel}"
+                       Path="ExtractionProgressTable" />
+              <Binding Source="{StaticResource FileExplorerViewModel}"
+                       Path="HasExtractionsRunning"
+                       Mode="OneWay" />
+              <Binding />
+              <Binding Path="ElementInfo" />
+            </MultiBinding>
+          </Setter.Value>
+        </Setter>
+        <Setter TargetName="FileProgressBar"
+                Property="Value">
+          <Setter.Value>
+            <MultiBinding Converter="{StaticResource ExtractionProgressConverter}"
+                          Mode="OneWay">
+              <Binding Source="{StaticResource FileExplorerViewModel}"
+                       Path="ExtractionProgressTable" />
+              <Binding Source="{StaticResource FileExplorerViewModel}"
+                       Path="HasExtractionsRunning" />
+              <Binding />
+              <Binding Path="ElementInfo" />
+            </MultiBinding>
+          </Setter.Value>
+        </Setter>
+        <DataTrigger.ExitActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetName="FileProgressBar"
+                               Storyboard.TargetProperty="Opacity"
+                               Duration="0:0:5"
+                               BeginTime="0:0:0"
+                               From="1"
+                               To="0.0">
+                <DoubleAnimation.EasingFunction>
+                  <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+              </DoubleAnimation>
+              <DoubleAnimation Storyboard.TargetName="ProgressStatusText"
+                               Storyboard.TargetProperty="Opacity"
+                               Duration="0:0:5"
+                               BeginTime="0:0:0"
+                               From="1"
+                               To="0.0">
+                <DoubleAnimation.EasingFunction>
+                  <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+              </DoubleAnimation>
+            </Storyboard>
+          </BeginStoryboard>
+        </DataTrigger.ExitActions>
+      </DataTrigger>
+
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundExpander, Path=IsMouseOver}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+      </DataTrigger>
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundLeft, Path=IsMouseOver}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+      </DataTrigger>
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundRight, Path=IsMouseOver}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+      </DataTrigger>
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundTopMiddle, Path=IsMouseOver}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+      </DataTrigger>
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundBottomMiddle, Path=IsMouseOver}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource MouseOverBrush}" />
+      </DataTrigger>
+
+      <!-- Uncomment when performance is better -->
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundLeft, Path=IsPressed}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource SelectedItemHighLightBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource SelectedItemHighLightBrush}" />
+      </DataTrigger>
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundRight, Path=IsPressed}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource SelectedItemHighLightBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource SelectedItemHighLightBrush}" />
+      </DataTrigger>
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundTopMiddle, Path=IsPressed}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource SelectedItemHighLightBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource SelectedItemHighLightBrush}" />
+      </DataTrigger>
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundBottomMiddle, Path=IsPressed}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource SelectedItemHighLightBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource SelectedItemHighLightBrush}" />
+      </DataTrigger>
+
+      <EventTrigger SourceName="ClickableItemBackgroundLeft"
+                    RoutedEvent="UIElement.PreviewMouseLeftButtonDown">
+        <BeginStoryboard>
+          <Storyboard>
+            <DoubleAnimation Storyboard.TargetName="LeftSkew"
+                             Storyboard.TargetProperty="AngleY"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="0"
+                             To="-1" />
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+      <EventTrigger SourceName="ClickableItemBackgroundLeft"
+                    RoutedEvent="UIElement.PreviewMouseLeftButtonUp">
+        <BeginStoryboard>
+          <Storyboard>
+            <DoubleAnimation Storyboard.TargetName="LeftSkew"
+                             Storyboard.TargetProperty="AngleY"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="-1"
+                             To="0" />
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+
+      <EventTrigger SourceName="ClickableItemBackgroundRight"
+                    RoutedEvent="UIElement.PreviewMouseLeftButtonDown">
+        <BeginStoryboard>
+          <Storyboard>
+            <DoubleAnimation Storyboard.TargetName="RightSkew"
+                             Storyboard.TargetProperty="AngleY"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="0"
+                             To="1" />
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+      <EventTrigger SourceName="ClickableItemBackgroundRight"
+                    RoutedEvent="UIElement.PreviewMouseLeftButtonUp">
+        <BeginStoryboard>
+          <Storyboard>
+            <DoubleAnimation Storyboard.TargetName="RightSkew"
+                             Storyboard.TargetProperty="AngleY"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="1"
+                             To="0" />
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+
+      <EventTrigger SourceName="ClickableItemBackgroundTopMiddle"
+                    RoutedEvent="UIElement.PreviewMouseLeftButtonDown">
+        <BeginStoryboard>
+          <Storyboard>
+            <DoubleAnimation Storyboard.TargetName="TopSkew"
+                             Storyboard.TargetProperty="AngleY"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="0"
+                             To="1" />
+            <DoubleAnimation Storyboard.TargetName="TopSkew"
+                             Storyboard.TargetProperty="AngleX"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="0"
+                             To="1" />
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+      <EventTrigger SourceName="ClickableItemBackgroundTopMiddle"
+                    RoutedEvent="UIElement.PreviewMouseLeftButtonUp">
+        <BeginStoryboard>
+          <Storyboard>
+            <DoubleAnimation Storyboard.TargetName="TopSkew"
+                             Storyboard.TargetProperty="AngleY"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="1"
+                             To="0" />
+            <DoubleAnimation Storyboard.TargetName="TopSkew"
+                             Storyboard.TargetProperty="AngleX"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="1"
+                             To="0" />
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+
+      <EventTrigger SourceName="ClickableItemBackgroundBottomMiddle"
+                    RoutedEvent="UIElement.PreviewMouseLeftButtonDown">
+        <BeginStoryboard>
+          <Storyboard>
+            <DoubleAnimation Storyboard.TargetName="BottomSkew"
+                             Storyboard.TargetProperty="AngleX"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="0"
+                             To="1" />
+            <DoubleAnimation Storyboard.TargetName="BottomSkew"
+                             Storyboard.TargetProperty="AngleY"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="0"
+                             To="1" />
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+      <EventTrigger SourceName="ClickableItemBackgroundBottomMiddle"
+                    RoutedEvent="UIElement.PreviewMouseLeftButtonUp">
+        <BeginStoryboard>
+          <Storyboard>
+            <DoubleAnimation Storyboard.TargetName="BottomSkew"
+                             Storyboard.TargetProperty="AngleY"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="1"
+                             To="0" />
+            <DoubleAnimation Storyboard.TargetName="BottomSkew"
+                             Storyboard.TargetProperty="AngleX"
+                             BeginTime="0:0:0"
+                             Duration="0:0:0"
+                             From="1"
+                             To="0" />
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+
+      <DataTrigger Binding="{Binding ElementName=ClickableItemBackgroundExpander, Path=IsPressed}"
+                   Value="True">
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource MouseClickedBrush}" />
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource MouseClickedBrush}" />
+      </DataTrigger>
+
+      <DataTrigger Binding="{Binding IsExistingDirectory}"
+                   Value="True">
+        <Setter TargetName="ClickableItemBackgroundLeft"
+                Property="Visibility"
+                Value="Collapsed" />
+        <Setter TargetName="ClickableItemBackgroundRight"
+                Property="Visibility"
+                Value="Collapsed" />
+        <Setter TargetName="ClickableItemBackgroundTopMiddle"
+                Property="Visibility"
+                Value="Collapsed" />
+        <Setter TargetName="ClickableItemBackgroundBottomMiddle"
+                Property="Visibility"
+                Value="Collapsed" />
+        <Setter TargetName="ClickableItemBackgroundExpander"
+                Property="Visibility"
+                Value="Visible" />
+        <Setter TargetName="ItemContent"
+                Property="Margin"
+                Value="0,0,0,0" />
+      </DataTrigger>
+
+      <DataTrigger Binding="{Binding IsArchive}"
+                   Value="True">
+        <Setter TargetName="ItemIcon"
+                Property="Content"
+                Value="{StaticResource ArchiveFileIcon}" />
+        <Setter TargetName="ItemIcon"
+                Property="Width"
+                Value="14" />
+        <Setter TargetName="ItemIcon"
+                Property="Height"
+                Value="16" />
+        <Setter TargetName="ItemIcon"
+                Property="Margin"
+                Value="0,0,5,2" />
+      </DataTrigger>
+
+      <!--<DataTrigger Binding="{Binding ElementInfo.Extension}"
+                   Value=".log">
+        <Setter TargetName="ItemIcon"
+                Property="Content"
+                Value="{StaticResource ArchiveFileIcon}" />
+        <Setter TargetName="ItemIcon"
+                Property="Width"
+                Value="14" />
+        <Setter TargetName="ItemIcon"
+                Property="Height"
+                Value="16" />
+        <Setter TargetName="ItemIcon"
+                Property="Margin"
+                Value="0,0,5,2" />
+      </DataTrigger>-->
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition Binding="{Binding IsExistingDirectory}"
+                     Value="True" />
+          <Condition Binding="{Binding IsArchive}"
+                     Value="False" />
+          <Condition Binding="{Binding IsExpanded}"
+                     Value="True" />
+        </MultiDataTrigger.Conditions>
+        <Setter TargetName="ItemIcon"
+                Property="Content"
+                Value="{StaticResource FolderOpenedIcon}" />
+        <Setter TargetName="ItemIcon"
+                Property="Height"
+                Value="22" />
+        <Setter TargetName="ItemIcon"
+                Property="Margin"
+                Value="0,-1,4,1" />
+        <Setter TargetName="ItemIcon"
+                Property="Width"
+                Value="20" />
+        <Setter TargetName="ItemContent"
+                Property="Padding"
+                Value="0,0,0,0" />
+      </MultiDataTrigger>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition Binding="{Binding IsExistingDirectory}"
+                     Value="True" />
+          <Condition Binding="{Binding IsArchive}"
+                     Value="False" />
+          <Condition Binding="{Binding IsExpanded}"
+                     Value="False" />
+        </MultiDataTrigger.Conditions>
+        <Setter TargetName="ItemIcon"
+                Property="Content"
+                Value="{StaticResource FolderClosedIcon}" />
+        <Setter TargetName="ItemIcon"
+                Property="Height"
+                Value="14" />
+        <Setter TargetName="ItemIcon"
+                Property="Width"
+                Value="18" />
+        <Setter TargetName="ItemContent"
+                Property="Padding"
+                Value="2,2,0,0" />
+        <Setter TargetName="ItemIcon"
+                Property="Margin"
+                Value="-1,0,4,0" />
+      </MultiDataTrigger>
+
+      <DataTrigger Binding="{Binding IsHidden}"
+                   Value="True">
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource IconForegroundDisabledBrush}" />
+        <Setter TargetName="ClickableItemBackgroundExpander"
+                Property="Foreground"
+                Value="{StaticResource IconForegroundDisabledBrush}" />
+        <Setter TargetName="ItemBorder"
+                Property="IsEnabled"
+                Value="False" />
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource IconForegroundDisabledBrush}" />
+      </DataTrigger>
+
+      <DataTrigger Binding="{Binding IsSystem}"
+                   Value="True">
+        <Setter TargetName="ItemIcon"
+                Property="Foreground"
+                Value="{StaticResource IconForegroundDisabledBrush}" />
+        <Setter TargetName="ClickableItemBackgroundExpander"
+                Property="Foreground"
+                Value="{StaticResource IconForegroundDisabledBrush}" />
+        <Setter TargetName="ItemBorder"
+                Property="IsEnabled"
+                Value="False" />
+        <Setter TargetName="ItemContent"
+                Property="Foreground"
+                Value="{StaticResource IconForegroundDisabledBrush}" />
+      </DataTrigger>
+    </HierarchicalDataTemplate.Triggers>
+  </HierarchicalDataTemplate>
+
+  <DataTemplate x:Key="ExtractedArchiveItemTemplate"
+                DataType="wpf:FileSystemTreeElement">
+    <Grid x:Name="RootGrid"
+          Margin="0,0,0,0"
+          HorizontalAlignment="Left">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition x:Name="ExpanderColumn"
+                          Width="Auto" />
+        <ColumnDefinition x:Name="ContentColumn"
+                          Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition x:Name="HeaderRow"
+                       Height="Auto" />
+        <RowDefinition x:Name="ExpandedContentRow"
+                       Height="Auto" />
+        <RowDefinition x:Name="PreviousFolderContentRow"
+                       Height="*" />
+      </Grid.RowDefinitions>
+      <!-- Expander -->
+      <ToggleButton x:Name="Expander"
+                    Visibility="Collapsed"
+                    Padding="9"
+                    Width="25"
+                    Height="25"
+                    Margin="0,0,0,0"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Panel.ZIndex="2"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Content="{StaticResource ChevronUpIcon}"
+                    ClickMode="Press"
+                    IsChecked="{Binding IsExpanded, Mode=TwoWay}">
+        <ToggleButton.Style>
+          <Style TargetType="ToggleButton"
+                 BasedOn="{StaticResource ToolIconButtonStyle}">
+            <Setter Property="Template">
+              <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                  <Border BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding  BorderThickness}"
+                          Background="{TemplateBinding Background}"
+                          Padding="{TemplateBinding Padding}">
+                    <ContentPresenter Content="{TemplateBinding Content}">
+                      <ContentPresenter.RenderTransform>
+                        <RotateTransform x:Name="ExpanderRotateTransform"
+                                         CenterX="3.5"
+                                         CenterY="3.5"
+                                         Angle="90" />
+                      </ContentPresenter.RenderTransform>
+                    </ContentPresenter>
+                  </Border>
+                  <!-- Rotate expander on IsChecked -->
+                  <ControlTemplate.Triggers>
+                    <Trigger Property="IsChecked"
+                             Value="True">
+                      <Trigger.EnterActions>
+                        <BeginStoryboard>
+                          <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="ExpanderRotateTransform"
+                                             Storyboard.TargetProperty="Angle"
+                                             Duration="0:0:0.3"
+                                             BeginTime="0:0:0"
+                                             From="90"
+                                             To="180">
+                              <DoubleAnimation.EasingFunction>
+                                <ExponentialEase Exponent="5"
+                                                 EasingMode="EaseInOut" />
+                              </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                          </Storyboard>
+                        </BeginStoryboard>
+                      </Trigger.EnterActions>
+                      <Trigger.ExitActions>
+                        <BeginStoryboard>
+                          <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="ExpanderRotateTransform"
+                                             Storyboard.TargetProperty="Angle"
+                                             Duration="0:0:0.3"
+                                             BeginTime="0:0:0"
+                                             From="180"
+                                             To="90">
+                              <DoubleAnimation.EasingFunction>
+                                <ExponentialEase Exponent="5"
+                                                 EasingMode="EaseInOut" />
+                              </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                          </Storyboard>
+                        </BeginStoryboard>
+                      </Trigger.ExitActions>
+                    </Trigger>
+                  </ControlTemplate.Triggers>
+                </ControlTemplate>
+              </Setter.Value>
+            </Setter>
+          </Style>
+        </ToggleButton.Style>
+      </ToggleButton>
+      <ContentPresenter x:Name="PART_Header"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        MinWidth="100"
+                        Width="Auto"
+                        Height="Auto"
+                        Content="{Binding ElementInfo.Name}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch" />
+      <ItemsPresenter x:Name="ItemsPresenter"
+                      Grid.Column="1"
+                      Grid.Row="1"
+                      Visibility="Collapsed" />
+      <!--<ItemsControl x:Name="FileItemsControl"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    ItemsSource="{Binding FileInfos}"
+                    ItemTemplateSelector="{StaticResource FileExplorerTemplateSelector}"
+                    Visibility="Collapsed"
+                    BorderThickness="0"
+                    Background="Transparent"
+                    VirtualizingStackPanel.IsVirtualizing="True"
+                    VirtualizingStackPanel.VirtualizationMode="Recycling"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" />-->
+      <TreeView x:Name="FileItemsControl"
+                Grid.Column="1"
+                Grid.Row="2"
+                ItemsSource="{Binding ChildFileSystemTreeElements}"
+                Visibility="Collapsed"
+                ItemContainerStyle="{StaticResource DirectoryTreeItemStyle}"
+                ItemTemplateSelector="{StaticResource FileExplorerTemplateSelector}" />
+    </Grid>
+
+
+    <DataTemplate.Triggers>
+      <EventTrigger SourceName="RootGrid"
+                    RoutedEvent="UIElement.PreviewMouseRightButtonUp">
+        <BeginStoryboard>
+          <Storyboard>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsSelected"
+                                            BeginTime="0:0:0"
+                                            Duration="0:0:0">
+              <DiscreteBooleanKeyFrame KeyTime="0:0:0"
+                                       Value="True" />
+            </BooleanAnimationUsingKeyFrames>
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+
+      <DataTrigger Binding="{Binding IsExpanded}"
+                   Value="True">
+        <Setter TargetName="ItemsPresenter"
+                Property="Visibility"
+                Value="Visible" />
+        <Setter TargetName="FileItemsControl"
+                Property="Visibility"
+                Value="Visible" />
+      </DataTrigger>
+
+      <Trigger Property="IsEnabled"
+               Value="False">
+        <Setter TargetName="Expander"
+                Property="Foreground"
+                Value="{StaticResource IconForegroundDisabledBrush}" />
+      </Trigger>
+
+      <DataTrigger Binding="{Binding IsArchive}"
+                   Value="True">
+        <Setter TargetName="Expander"
+                Property="Visibility"
+                Value="Visible" />
+      </DataTrigger>
+      <!--Item is virtual root directory-->
+      <!--<DataTrigger Binding="{Binding ParentDirectory}"
+                   Value="{x:Null}">
+        <Setter Property="IsExpanded"
+                Value="True" />
+      </DataTrigger>-->
+
+      <DataTrigger Binding="{Binding IsHidden}"
+                   Value="True">
+        <Setter Property="IsEnabled"
+                Value="False" />
+      </DataTrigger>
+
+      <DataTrigger Binding="{Binding IsSystem}"
+                   Value="True">
+        <Setter Property="IsEnabled"
+                Value="False" />
+      </DataTrigger>
+    </DataTemplate.Triggers>
+  </DataTemplate>
+
+  <Style x:Key="FileExplorerTreeViewStyle"
+         TargetType="TreeView">
+    <Style.Resources>
+      
+
+      <!-- Override system control brushes for highlight -->
+      <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                       Color="Transparent" />
+      <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                       Color="{StaticResource SelectedItemHighLightColor}"
+                       Opacity="0.7" />
+      <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                       Color="Transparent" />
+      <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                       Color="Black" />
+
+      <converter:IsGreaterThanValueConverter x:Key="IsGreaterThanValueConverter" />
+    </Style.Resources>
+
+    <Setter Property="OverridesDefaultStyle"
+            Value="True" />
+    <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+            Value="True" />
+    <Setter Property="VirtualizingStackPanel.VirtualizationMode"
+            Value="Recycling" />
+    <Setter Property="Background"
+            Value="{StaticResource ApplicationWhiteBrush}" />
+    <Setter Property="Foreground"
+            Value="{StaticResource TextBrush}" />
+    <Setter Property="BorderBrush"
+            Value="Transparent" />
+    <Setter Property="BorderThickness"
+            Value="0" />
+    <Setter Property="ItemContainerStyle"
+            Value="{StaticResource DirectoryTreeItemStyle}" />
+    <Setter Property="ItemTemplate"
+            Value="{StaticResource DirectoryTreeItemTemplate}" />
+    <Setter Property="FocusVisualStyle"
+            Value="{x:Null}" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+            Value="Auto" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+            Value="Auto" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="TreeView">
+          <Border Name="Border"
+                  CornerRadius="{x:Static resources:ApplicationUiConstants.CornerRadius}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}">
+            <Grid>
+              <TextBlock x:Name="FolderDragDropHint"
+                         TextAlignment="Center"
+                         Visibility="Visible"
+                         HorizontalAlignment="Center"
+                         Panel.ZIndex="1"
+                         Style="{StaticResource HintTextBlockStyle}"
+                         TextOptions.TextFormattingMode="Display">
+                <TextBlock.Inlines>
+                  <Run Text="Drop files or folders" />
+                  <LineBreak />
+                  <Run Text="to add them to your session" />
+                </TextBlock.Inlines>
+              </TextBlock>
+
+              <ScrollViewer Padding="4">
+                <ItemsPresenter />
+              </ScrollViewer>
+            </Grid>
+          </Border>
+
+          <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Source={StaticResource FileExplorerViewModel}, Path=IsExplorerInDefaultState}"
+                     Value="False">
+              <Setter TargetName="FolderDragDropHint"
+                      Property="Visibility"
+                      Value="Collapsed" />
+            </DataTrigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

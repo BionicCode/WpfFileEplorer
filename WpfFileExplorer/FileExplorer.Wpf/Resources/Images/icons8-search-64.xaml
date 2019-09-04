@@ -1,0 +1,10 @@
+<!-- Converted from svg with ViewerSvg and Ab2d.ReaderSvg -->
+<!-- Created with evaluation version for evaluation purpose only! NOT FOR COMMERCIAL USE! -->
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Viewbox Stretch="Uniform">
+        <Canvas Width="38.5704650878906" Height="38.8357543945313">
+            <Canvas/>
+            <Path Fill="Black" StrokeThickness="1" Data="F1M12.1,24.7457543945313C7.10000000000002,15.4557543945313,8.23000000000002,7.62575439453127,14.92,2.74575439453128A15,15,0,0,1,35.67,23.8657543945313C30.79,30.3557543945313,22.9,31.4757543945313,14.37,26.7257543945313L3.11000000000001,38.8357543945313 0,35.9157543945312z M23.69,26.8257543945313A12,12,0,1,0,11.76,14.8257543945313A12,12,0,0,0,23.69,26.8257543945313z"/>
+        </Canvas>
+    </Viewbox>
+</UserControl>

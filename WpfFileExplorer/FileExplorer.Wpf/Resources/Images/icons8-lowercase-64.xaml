@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <Viewbox x:Key="LowerCaseUpperCaseIcon" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" x:Shared="False">
+
+    <Canvas Width="38.76" Height="29.92">
+      <Canvas/>
+      <Polyline Points="38.76,0 38.76,1.7 38.76,2.9 29.99,2.9 29.99,29.92 26.88,29.92 26.88,2.9 18,2.9 18,0" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1"/>
+      <Polygon Points="8.99,29.92 5.99,29.92 5.99,12.04 0,12.04 0,8.99 14.74,8.99 14.74,12.04 8.99,12.04 8.99,29.92" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1"/>
+    </Canvas>
+  </Viewbox>
+</ResourceDictionary>

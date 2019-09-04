@@ -1,0 +1,8 @@
+<!-- Converted from svg with ViewerSvg and Ab2d.ReaderSvg -->
+<!-- Created with evaluation version for evaluation purpose only! NOT FOR COMMERCIAL USE! -->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform">
+    <Canvas Width="24.75" Height="33.75">
+        <Canvas Canvas.Left="-19.625" Canvas.Top="-15.125"/>
+        <Path Fill="#FF231F20" StrokeThickness="1" Canvas.Left="-19.625" Canvas.Top="-15.125" Data="F1M44.375,46.625L44.375,48.875 19.625,48.875 19.625,46.625 44.375,46.625z M23.439,44.375L21.066,44.375 30.822,15.125 33.177,15.125 42.933,44.375 40.56,44.375 37.572,35.375 26.428,35.375 23.439,44.375z M27.184,33.125L36.817,33.125 32,18.693 27.184,33.125z"/>
+    </Canvas>
+</Viewbox>

@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Viewbox x:Key="FolderClosedIcon" x:Shared="False" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" UseLayoutRounding="True">
+        <Canvas Width="980" Height="796.20002746582">
+            <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M0,-122.599996948242L0,-122.599996948242 0,-122.599996948242z" />
+            <Path Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Control}, Path=Foreground}" StrokeThickness="1" Data="F1M0,183.700003051758L980,183.700003051758 918.7,796.200003051758 61.3,796.200003051758 0,183.700003051758 0,183.700003051758z M888.1,61.2000030517578L918.7,122.500003051758 61.3,122.500003051758 122.6,3.05175780113132E-06 459.5,3.05175780113132E-06 490.1,61.3000030517578 888.1,61.3000030517578 888.1,61.2000030517578z" />
+        </Canvas>
+    </Viewbox>
+</ResourceDictionary>
