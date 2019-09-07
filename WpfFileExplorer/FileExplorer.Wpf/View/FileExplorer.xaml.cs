@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using BionicLibrary.Net.Utility;
-using FileExplorer.Wpf.Settings;
 using FileExplorer.Wpf.ViewModel;
 using FileExplorer.Wpf.Zip;
 using WpfControls = System.Windows.Controls;
@@ -130,7 +129,6 @@ namespace FileExplorer.Wpf.View
 
       // ... or just open the document if it's no archive but file
       throw new NotImplementedException();
-      ApplicationSettingsManager.Instance.RecentFiles.Add(fileSystemTreeElement.ElementInfo as FileInfo);
     }
 
     private void CanExecuteViewFile(object sender, CanExecuteRoutedEventArgs e)

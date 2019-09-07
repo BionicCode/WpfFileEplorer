@@ -14,8 +14,6 @@ using System.Windows.Threading;
 using BionicLibrary.Net.Utility;
 using BionicLibrary.NetStandard.Generic;
 using BionicLibrary.NetStandard.IO;
-using FileExplorer.Wpf.Settings;
-using FileExplorer.Wpf.Settings.View;
 using FileExplorer.Wpf.Zip;
 using JetBrains.Annotations;
 
@@ -25,14 +23,6 @@ namespace FileExplorer.Wpf.ViewModel
   {
     public FileExplorerViewModel()
     {
-      if (ApplicationSettingsManager.Instance.AreFileExplorerSettingsInitialized)
-      {
-        UpdateFileFiltersOnSettingsManagerPropertyChanged(null, null);
-      }
-      else
-      {
-        ApplicationSettingsManager.Instance.FileExplorerSettingsInitialized += UpdateFileFiltersOnSettingsManagerPropertyChanged;
-      }
       // Create the virtual root for later binding of its child collection to a TreeViews's items source. 
       this.VirtualExplorerRootDirectory = FileSystemTreeElement.EmptyDirectoryNode;
 
@@ -43,18 +33,6 @@ namespace FileExplorer.Wpf.ViewModel
       this.ExtractionProgressTable = new ObservableDictionary<FileSystemInfo, ExtractionProgressEventArgs>();
       
       Application.Current.LoadCompleted += (s, e) => InitializeRootFolder();
-    }
-
-    private void UpdateFileFiltersOnSettingsManagerPropertyChanged(object sender, EventArgs e)
-    {
-       ApplicationSettingsManager.Instance.FileExplorerSettingsInitialized -= UpdateFileFiltersOnSettingsManagerPropertyChanged;
-      this.IsShowingArchiveFiles = ApplicationSettingsManager.Instance.ExplorerIsShowingAnyFiles;
-      this.IsShowingAnyFiles = ApplicationSettingsManager.Instance.ExplorerIsShowingAnyFiles;
-      this.IsShowingIniFiles = ApplicationSettingsManager.Instance.ExplorerIsShowingIniFiles;
-      this.IsShowingTxtFiles = ApplicationSettingsManager.Instance.ExplorerIsShowingTxtFiles;
-      this.IsShowingLogFiles = ApplicationSettingsManager.Instance.ExplorerIsShowingLogFiles;
-      this.FileFilterExtensions = ApplicationSettingsManager.Instance.CustomExplorerFilterValue;
-      this.IsFilteringFileSystemTreeByCustomExtensions = ApplicationSettingsManager.Instance.IsCustomFileFilteringEnabled;
     }
 
     private async void InitializeRootFolder()
@@ -175,26 +153,11 @@ namespace FileExplorer.Wpf.ViewModel
             AddFilePathInfoToExplorerTree(newFileSystemInfo, isRootFolderExpanded);
           }
 
-          if (ApplicationSettingsManager.Instance.IsAutoOpenSpecificFiles)
-          {
-            AutoOpenFile(newFileSystemInfo);
-          }
-
           ClearIsBusy();
           this.isInitializing = false;
         }
         this.VirtualExplorerRootDirectory.SortChildren();
       }).ConfigureAwait(false);
-    }
-
-    private void AutoOpenFile(FileSystemInfo newFileSystemInfo)
-    {
-      if (ApplicationSettingsManager.Instance.SpecificAutoOpenFileNames.Contains(newFileSystemInfo.Name))
-      {
-        //Application.Current.Dispatcher.InvokeAsync(() =>
-        //  LogDocumentManager.AddNewDocumentCommand.Execute(newFileSystemInfo));
-        throw new NotImplementedException();
-      }
     }
 
     public void ClearFileSystemTree()
@@ -564,7 +527,6 @@ namespace FileExplorer.Wpf.ViewModel
       { 
         this.fileFilterExtensions = value;
         OnPropertyChanged();
-        ApplicationSettingsManager.Instance.CustomExplorerFilterValue = this.FileFilterExtensions;
       }
     }
 
@@ -713,7 +675,6 @@ namespace FileExplorer.Wpf.ViewModel
       {
         this.isFilteringFileSystemTreeByCustomExtensions = value;
         OnPropertyChanged();
-        ApplicationSettingsManager.Instance.IsCustomFileFilteringEnabled = this.IsFilteringFileSystemTreeByCustomExtensions;
         FilterFileSystemTree();
       }
     }
@@ -730,7 +691,6 @@ namespace FileExplorer.Wpf.ViewModel
         }
         this.isShowingLogFiles = value;
         OnPropertyChanged();
-        ApplicationSettingsManager.Instance.ExplorerIsShowingLogFiles = this.IsShowingLogFiles;
       }
     }
 
@@ -746,7 +706,6 @@ namespace FileExplorer.Wpf.ViewModel
         }
         this.isShowingTxtFiles = value;
         OnPropertyChanged();
-        ApplicationSettingsManager.Instance.ExplorerIsShowingTxtFiles = this.IsShowingTxtFiles;
       }
     }
 
@@ -763,7 +722,6 @@ namespace FileExplorer.Wpf.ViewModel
         }
         this.isShowingArchiveFiles = value;
         OnPropertyChanged();
-        ApplicationSettingsManager.Instance.ExplorerIsShowingArchiveFiles = this.IsShowingArchiveFiles;
       }
     }
 
@@ -779,7 +737,6 @@ namespace FileExplorer.Wpf.ViewModel
         }
         this.isShowingIniFiles = value;
         OnPropertyChanged();
-        ApplicationSettingsManager.Instance.ExplorerIsShowingIniFiles = this.IsShowingIniFiles;
       }
     }
 
@@ -798,7 +755,6 @@ namespace FileExplorer.Wpf.ViewModel
         {
           this.isShowingAnyFiles = true;
           OnPropertyChanged();
-          ApplicationSettingsManager.Instance.ExplorerIsShowingAnyFiles = this.IsShowingAnyFiles;
           EnableAllFilters();
           return;
         }
@@ -810,8 +766,6 @@ namespace FileExplorer.Wpf.ViewModel
         {
           EnableAllFilters();
         }
-
-        ApplicationSettingsManager.Instance.ExplorerIsShowingAnyFiles = this.IsShowingAnyFiles;
       }
     }
   }
